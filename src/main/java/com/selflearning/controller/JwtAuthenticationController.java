@@ -3,6 +3,7 @@ package com.selflearning.controller;
 import com.selflearning.config.JwtTokenUtil;
 import com.selflearning.model.JwtRequest;
 import com.selflearning.model.JwtResponse;
+import com.selflearning.model.UserDTO;
 import com.selflearning.service.JwtUserDetailsService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -38,6 +39,12 @@ public class JwtAuthenticationController {
         final String token = jwtTokenUtil.generateToken(userDetails);
 
         return ResponseEntity.ok(new JwtResponse(token));
+    }
+
+    //Added below method for User Authentication using MySql JPA change
+    @PostMapping(value = "/register")
+    public ResponseEntity<?> saveUser(@RequestBody UserDTO user) throws Exception {
+        return ResponseEntity.ok(userDetailsService.save(user));
     }
 
     private void authenticate(String username, String password) throws Exception{

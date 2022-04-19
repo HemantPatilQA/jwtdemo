@@ -52,7 +52,8 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter{
         //We don't need CSRF for this example
         httpSecurity.csrf().disable()
                 //don't authenticate this particular request
-                .authorizeRequests().antMatchers("/authenticate").permitAll()
+                //Added , "/register" below for User Authentication using MySql JPA change
+                .authorizeRequests().antMatchers("/authenticate", "/register").permitAll()
                 //All other requests needs to be Authenticated
                 .anyRequest().authenticated().and()
                 //Make sure we use stateless session; session won't be used to store user's state
